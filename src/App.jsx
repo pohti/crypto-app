@@ -2,6 +2,7 @@ import HeaderBar from './components/header/HeaderBar';
 import CryptoTable from './components/crypto_table/CryptoTable';
 
 function App() {
+
   return (
     <div style={styles.main}>
       <HeaderBar/>
