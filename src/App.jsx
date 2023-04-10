@@ -11,7 +11,7 @@ function App() {
   const fetchCryptoData = async () => {
       try {
           setLoading(true);
-          const {status, data: cryptoData} = await getLatestCryptoData();
+          const {status, data: cryptoData} = await getLatestCryptoData(currency);
           console.log('status: ', status)
           console.log('cryptoData: ', cryptoData)
           setCryptoData(cryptoData);
@@ -28,7 +28,7 @@ function App() {
       const fetchCryptoData = async () => {
           try {
               setLoading(true);
-              const {status, data: cryptoData} = await getLatestCryptoData();
+              const {status, data: cryptoData} = await getLatestCryptoData(currency);
               console.log('status: ', status)
               console.log('cryptoData: ', cryptoData)
               setCryptoData(cryptoData);
@@ -41,17 +41,16 @@ function App() {
           }
       }
       fetchCryptoData();
-      console.log('i fire once');
-  }, []);
+  }, [currency]);
 
-  const handleCurrencyChange = newCurrency => {
+  const handleCurrencyChange = async newCurrency => {
     console.log('newCurrency: ', newCurrency)
-    setCurrency(newCurrency);
+    setCurrency(newCurrency)
   }
 
   return (
     <div style={styles.main}>
-      <HeaderBar setCurrency={setCurrency}/>
+      <HeaderBar handleCurrencyChange={handleCurrencyChange}/>
       <div style={styles.body} >
         <CryptoTable 
           cryptoData={cryptoData}

@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { getLatestCryptoData } from '../../api/crypto';
+import React, { Fragment, useState } from 'react';
+
 
 // material ui
 import Button from '@mui/material/Button';
@@ -44,8 +44,8 @@ const CustomTableRow = ({current, currency}) => {
                 <TableCell component="th" scope="row">{name}</TableCell>
                 <TableCell align="right">{cmc_rank}</TableCell>
                 <TableCell align="right">{symbol}</TableCell>
-                <TableCell align="right">{quote[currency].price}</TableCell>
-                <TableCell align="right">{quote[currency].volume_change_24h}</TableCell>
+                <TableCell align="right">{quote[currency]?.price}</TableCell>
+                <TableCell align="right">{quote[currency]?.volume_change_24h}</TableCell>
             </TableRow>
 
             {/* expandable row */}
@@ -63,10 +63,10 @@ const CustomTableRow = ({current, currency}) => {
                             <Divider style={{order: 2}} orientation="vertical" flexItem />
                             <div style={styles.other_info}>
                                 <h3>{currency}</h3>
-                                <div><label><b>Price</b>:</label> <span>{quote[currency].price}</span></div>
-                                <div><label><b>24 hr volume change</b>:</label> <span>{quote[currency].volume_change_24h}</span></div>
-                                <div><label><b>24 hr percentage change</b>:</label> <span>{quote[currency].percent_change_24h}</span></div>
-                                <div><label><b>Market Cap</b>:</label> <span>{quote[currency].market_cap}</span></div>
+                                <div><label><b>Price</b>:</label> <span>{quote[currency]?.price}</span></div>
+                                <div><label><b>24 hr volume change</b>:</label> <span>{quote[currency]?.volume_change_24h}</span></div>
+                                <div><label><b>24 hr percentage change</b>:</label> <span>{quote[currency]?.percent_change_24h}</span></div>
+                                <div><label><b>Market Cap</b>:</label> <span>{quote[currency]?.market_cap}</span></div>
                             </div>
                             <Divider style={{order: 4}} orientation="vertical" flexItem />
                             <div style={styles.other_info2}>
@@ -90,6 +90,8 @@ const CryptoTable = (props) => {
     } = props;
 
     if (loading) return <div>Loading...</div>
+
+    if (cryptoData.length === 0) return <div>No data</div>
 
     return (
         <div style={styles.table_div}>

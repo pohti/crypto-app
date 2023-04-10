@@ -1,12 +1,6 @@
 import React from 'react';
 
-const HeaderBar = ({ setCurrency }) => {
-    const handleCurrencyChange = event => {
-        console.log('event.target.value: ', event.target.value)
-        setCurrency(event.target.value);
-    }
-
-
+const HeaderBar = ({ handleCurrencyChange }) => {
     return (
         <div style={styles.header_bar}>
             <div style={styles.logo}>
@@ -17,11 +11,14 @@ const HeaderBar = ({ setCurrency }) => {
                     maxHeight: '30px',
                     width: '70px'
                 }}
-                    onChange={handleCurrencyChange}
+                    onChange={event => {
+                        handleCurrencyChange(event.target.value)
+                    }}
                 >
                     <option value="USD">USD</option>
                     <option value="EUR">EUR</option>
                     <option value="CNY">CNY</option>
+                    <option value="BTC">Bitcoin</option>
                 </select>
             </div>
         </div>
