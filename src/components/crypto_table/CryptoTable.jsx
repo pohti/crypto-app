@@ -11,7 +11,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
-import Typography from '@mui/material/Typography';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -54,13 +53,13 @@ const CustomTableRow = ({current, currency}) => {
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <div style={styles.collapse_row}>
-                            <div style={styles.bitcoin_info}>
+                            {/* <div style={styles.bitcoin_info}>
                                 <h3>BTC</h3>
                                 <div><label><b>Price</b>:</label> <span>{quote.BTC.price}</span></div>
                                 <div><label><b>24 hr volume change</b>:</label> <span>{quote.BTC.volume_change_24h} BTC</span></div>
                                 <div><label><b>24 hr percentage change</b>:</label> <span>{quote.BTC.percent_change_24h}</span></div>
                                 <div><label><b>Market Cap</b>:</label> <span>{quote.BTC.market_cap} BTC</span></div>
-                            </div>
+                            </div> */}
                             <Divider style={{order: 2}} orientation="vertical" flexItem />
                             <div style={styles.other_info}>
                                 <h3>{currency}</h3>
@@ -82,46 +81,13 @@ const CustomTableRow = ({current, currency}) => {
     )
 }
 
-const CryptoTable = () => {
-    const [cryptoData, setCryptoData] = useState([]);
-    const [currency, setCurrency] = useState('USD');
-    const [loading, setLoading] = useState(false);
-
-    const fetchCryptoData = async () => {
-        try {
-            setLoading(true);
-            const {status, data: cryptoData} = await getLatestCryptoData();
-            console.log('status: ', status)
-            console.log('cryptoData: ', cryptoData)
-            setCryptoData(cryptoData);
-        }
-        catch (eInfo) {
-            console.error('Error fetching crypto data: ', eInfo)
-        }
-        finally {
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        const fetchCryptoData = async () => {
-            try {
-                setLoading(true);
-                const {status, data: cryptoData} = await getLatestCryptoData();
-                console.log('status: ', status)
-                console.log('cryptoData: ', cryptoData)
-                setCryptoData(cryptoData);
-            }
-            catch (eInfo) {
-                console.error('Error fetching crypto data: ', eInfo)
-            }
-            finally {
-                setLoading(false);
-            }
-        }
-        fetchCryptoData();
-        console.log('i fire once');
-    }, []);
+const CryptoTable = (props) => {
+    const {
+        cryptoData,
+        loading,
+        handleRefresh,
+        currency
+    } = props;
 
     if (loading) return <div>Loading...</div>
 
@@ -134,7 +100,7 @@ const CryptoTable = () => {
                         display: 'flex',
                         justifyContent: 'flex-end'
                     }}>
-                    <Button variant="contained" onClick={fetchCryptoData}>
+                    <Button variant="contained" onClick={handleRefresh}>
                         <RefreshIcon/>
                     </Button>
                 </div>
@@ -173,7 +139,8 @@ const styles = {
     },
     table_info_row: {
         display: 'flex',
-        gap: '10px 5px'
+        gap: '10px 5px',
+        padding: '5px 15px'
     },
     collapse_row: {
         display: 'flex',
