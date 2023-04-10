@@ -11,8 +11,6 @@ export const getLatestCryptoData = async (currency) => {
         'x-api-key': apiKey,
         // 'Accept': 'application/json',
         'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     }
 
     const response = await fetch(url, { headers })
