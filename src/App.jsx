@@ -4,8 +4,8 @@ import CryptoTable from './components/crypto_table/CryptoTable';
 function App() {
   return (
     <div style={styles.main}>
-      <HeaderBar />
-      <div className="body-div">
+      <HeaderBar/>
+      <div style={styles.body}>
         <CryptoTable />
       </div>
     </div>
@@ -15,7 +15,13 @@ function App() {
 const styles = {
   main: {
     display: 'flex',
+    flexWrap: 'wrap',
     flexDirection: 'column',
+    height: '100%',
+    border: '1px solid green',
+  },
+  body: {
+    height: '100%',
   }
 }
 

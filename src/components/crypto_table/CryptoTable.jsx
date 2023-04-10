@@ -9,7 +9,10 @@ const CryptoTable = () => {
 }
 
 const styles = {
-    table_div: {}
+    table_div: {
+        height: '100%',
+        border: '1px solid blue',
+    }
 }
 
 export default CryptoTable;

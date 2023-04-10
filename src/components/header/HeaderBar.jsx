@@ -12,14 +12,16 @@ const HeaderBar = () => {
 const styles = {
     header_bar: {
         display: 'flex',
+        flexWrap: 'wrap',
         gap: '10px',
         border: '1px solid red',
+        padding: '5px 10px',
+        paddingTop: '10px',
+        height: '25px',
     },
     logo: {
-        
     },
     settings: {
-
     }
   }
 
