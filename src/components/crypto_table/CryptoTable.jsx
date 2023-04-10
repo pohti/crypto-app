@@ -28,7 +28,15 @@ const CryptoTable = () => {
 
     return (
         <div style={styles.table_div}>
-            Total items {cryptoData.length}
+            <div style={styles.table_info_row}>
+                <div>Total items {cryptoData.length}</div>
+                <div>
+                    <button>Reload</button>
+                </div>
+            </div>
+            <div>
+                Table goes here
+            </div>
         </div>
     )
 }
@@ -37,6 +45,14 @@ const styles = {
     table_div: {
         height: '100%',
         border: '1px solid blue',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px 5px',
+        padding: '10px 5px',
+    },
+    table_info_row: {
+        display: 'flex',
+        gap: '10px 5px'
     }
 }
 

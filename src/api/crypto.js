@@ -1,6 +1,5 @@
 
-// const apiKey = process.env.REACT_APP_APIKEY;
-const apiKey = `l6mbctsZY66Yr7Y83uxiT36710WrZ8xQ1EMa1XQT`
+const apiKey = process.env.REACT_APP_APIKEY;
 const baseURL = `https://aa3wd32wri.execute-api.ap-southeast-1.amazonaws.com/dev`
 
 export const getLatestCryptoData = async () => {

@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 const HeaderBar = () => {
     return (
         <div style={styles.header_bar}>
-            <div>Icon</div>
+            <div style={styles.logo}>
+                <b>Crypto Tracker</b>
+            </div>
             <div>Settings</div>
         </div>
     )
@@ -20,6 +22,7 @@ const styles = {
         height: '25px',
     },
     logo: {
+        
     },
     settings: {
     }
