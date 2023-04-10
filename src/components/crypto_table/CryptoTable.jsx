@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { getLatestCryptoData } from '../../api/crypto';
 
 // material ui
-import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import TableContainer from '@mui/material/TableContainer';
@@ -12,6 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Divider from '@mui/material/Divider';
@@ -127,9 +128,15 @@ const CryptoTable = () => {
     return (
         <div style={styles.table_div}>
             <div style={styles.table_info_row}>
-                <div>Total items {cryptoData.length}</div>
-                <div>
-                    <button onClick={fetchCryptoData}>Reload</button>
+                <div style={{ flexGrow: 5 }}>Total items {cryptoData.length}</div>
+                <div style={{ 
+                        flexGrow: 1,
+                        display: 'flex',
+                        justifyContent: 'flex-end'
+                    }}>
+                    <Button variant="contained" onClick={fetchCryptoData}>
+                        <RefreshIcon/>
+                    </Button>
                 </div>
             </div>
             <TableContainer>
@@ -158,7 +165,7 @@ const CryptoTable = () => {
 const styles = {
     table_div: {
         height: '100%',
-        border: '1px solid blue',
+        // border: '1px solid blue',
         display: 'flex',
         flexDirection: 'column',
         gap: '10px 5px',

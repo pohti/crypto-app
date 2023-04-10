@@ -19,7 +19,7 @@ const styles = {
     flexWrap: 'wrap',
     flexDirection: 'column',
     height: '100%',
-    border: '1px solid green',
+    // border: '1px solid green',
   },
   body: {
     height: '100%',
