@@ -22,7 +22,7 @@ const CryptoTable = (props) => {
             title: 'Rank',
             dataIndex: 'cmc_rank',
             key: 'cmc_rank',
-            defaultSortOrder: 'descend',
+            defaultSortOrder: 'ascend',
             sorter: (a, b) => a.cmc_rank - b.cmc_rank,
         },
         {
