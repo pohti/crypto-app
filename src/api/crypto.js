@@ -1,5 +1,5 @@
+import {APIKEY} from '../apiKey'
 
-const apiKey = process.env.REACT_APP_APIKEY;
 const baseURL = `https://aa3wd32wri.execute-api.ap-southeast-1.amazonaws.com/dev`
 
 export const getLatestCryptoData = async (currency) => {
@@ -8,8 +8,7 @@ export const getLatestCryptoData = async (currency) => {
     // const sort = 'market_cap'
     const url = `${baseURL}?currency=${currency}`
     const headers = {
-        'x-api-key': apiKey,
-        // 'Accept': 'application/json',
+        'x-api-key': APIKEY,
         'Content-Type': 'application/json',
         // 'Access-Control-Allow-Origin': '*',
         // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
