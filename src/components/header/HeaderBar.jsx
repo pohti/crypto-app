@@ -1,4 +1,5 @@
 import React from 'react';
+import { Select } from 'antd';
 
 const HeaderBar = ({ handleCurrencyChange }) => {
     return (
@@ -7,19 +8,17 @@ const HeaderBar = ({ handleCurrencyChange }) => {
                 <h2>Crypto Tracker</h2>
             </div>
             <div style={styles.currency_select_div}>
-                <select style={{
-                    maxHeight: '30px',
-                    width: '70px'
-                }}
-                    onChange={event => {
-                        handleCurrencyChange(event.target.value)
-                    }}
-                >
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="CNY">CNY</option>
-                    <option value="BTC">Bitcoin</option>
-                </select>
+                <Select
+                    defaultValue="USD"
+                    style={{ width: 120 }}
+                    onChange={handleCurrencyChange}
+                    options={[
+                        { value: 'USD', label: 'USD' },
+                        { value: 'EUR', label: 'EUR' },
+                        { value: 'CNY', label: 'CNY' },
+                        { value: 'BTC', label: 'Bitcoin' },
+                    ]}
+                />
             </div>
         </div>
     )
