@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Table } from 'antd'
-import { ReloadOutlined } from '@ant-design/icons';
+import { LoadingOutlined, ReloadOutlined } from '@ant-design/icons';
 
 
 const CryptoTable = (props) => {
@@ -55,7 +55,7 @@ const CryptoTable = (props) => {
         setExpandedRowKeys(keys);
     }
 
-    if (loading) return <div>Loading...</div>
+    if (loading) return <div style={styles.loading_div}><LoadingOutlined/></div>
 
     // if (cryptoData.length === 0) return <div>No data</div>
 
@@ -105,6 +105,12 @@ const CryptoTable = (props) => {
 }
 
 const styles = {
+    loading_div: {
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        padding: '20px',
+    },
     table_div: {
         height: '100%',
         // border: '1px solid blue',
@@ -125,35 +131,6 @@ const styles = {
         // border: '1px solid blue',
         padding: '10px 5px'
     },
-    bitcoin_info: {
-        display: 'flex',
-        flexDirection: 'column',
-        order: 1,
-        gap: '5px 5px',
-        minWidth: '300px',
-        marginLeft: '15px',
-        marginBottom: '10px'
-        // border: '1px solid red',
-    },
-    other_info: {
-        display: 'flex',
-        flexDirection: 'column',
-        order: 3,
-        gap: '5px 5px',
-        minWidth: '300px',
-        marginLeft: '15px',
-        // border: '1px solid green',
-    },
-    other_info2: {
-        display: 'flex',
-        flexDirection: 'column',
-        order: 5,
-        gap: '5px 5px',
-        minWidth: '300px',
-        marginLeft: '15px',
-        paddingTop: '15px'
-        // border: '1px solid green',
-    }
 }
 
 export default CryptoTable;
