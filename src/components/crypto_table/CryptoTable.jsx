@@ -21,7 +21,9 @@ const CryptoTable = (props) => {
         {
             title: 'Rank',
             dataIndex: 'cmc_rank',
-            key: 'cmc_rank'
+            key: 'cmc_rank',
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => a.cmc_rank - b.cmc_rank,
         },
         {
             title: 'Symbol',
@@ -29,14 +31,18 @@ const CryptoTable = (props) => {
             key: 'symbol'
         },
         {
-            title: 'Price',
+            title: `Price (${currency})`,
             dataIndex: ['quote', currency, 'price'],
-            key: 'name'
+            key: 'name',
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => a.quote[currency]?.price - b.quote[currency]?.price,
         },
         {
             title: '24 hour change',
             dataIndex: ['quote', currency, 'volume_change_24h'],
-            key: 'name'
+            key: 'name',
+            // defaultSortOrder: 'descend',
+            sorter: (a, b) => a.quote[currency]?.volume_change_24h - b.quote[currency]?.volume_change_24h,
         },
     ]
 
