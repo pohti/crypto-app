@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react';
-import { Table } from 'antd'
+import React, { useState } from 'react';
+import { Button, Table } from 'antd'
+import { ReloadOutlined } from '@ant-design/icons';
 
 
 const CryptoTable = (props) => {
@@ -10,11 +11,12 @@ const CryptoTable = (props) => {
         currency
     } = props;
 
+    const [expandedRowKeys, setExpandedRowKeys] = useState([])
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
-            key: 'name'
+            key: 'id'
         },
         {
             title: 'Rank',
@@ -38,6 +40,21 @@ const CryptoTable = (props) => {
         },
     ]
 
+    const onTableRowExpand = (expanded, record) => {
+        // console.log('expanded', record.id, expanded)
+        const newId = record.id
+        const keys = expandedRowKeys.slice();
+
+        const index = keys.indexOf(newId);
+        if (index === -1) {
+          keys.push(newId);
+        } else {
+          keys.splice(index, 1);
+        }
+
+        setExpandedRowKeys(keys);
+    }
+
     if (loading) return <div>Loading...</div>
 
     // if (cryptoData.length === 0) return <div>No data</div>
@@ -51,7 +68,7 @@ const CryptoTable = (props) => {
                         display: 'flex',
                         justifyContent: 'flex-end'
                     }}>
-                    <button>Reload</button>
+                    <Button onClick={handleRefresh}><ReloadOutlined/></Button>
                 </div>
             </div>
                     
@@ -59,6 +76,29 @@ const CryptoTable = (props) => {
                 columns={columns}
                 dataSource={cryptoData}
                 loading={loading}
+                rowKey={record => record.id}
+                expandedRowKeys={expandedRowKeys}
+                onExpand={onTableRowExpand}
+                expandable={{
+                    expandedRowRender: record => {
+                        const {
+                            quote, total_supply, max_supply
+                        } = record
+                        return (
+                            <div style={styles.collapse_row} key={record.id}>
+                                <div style={styles.bitcoin_info}>
+                                    <div>{currency}</div>
+                                    <div>Market cap: {quote[currency]?.market_cap}</div>
+                                    <div>Volume 24h: {quote[currency]?.volume_24h}</div>
+                                    <div>Percent change 24h: {quote[currency]?.percent_change_24h}</div>
+                                    <div>Total supply: {total_supply}</div>
+                                    <div>Max supply: {max_supply}</div>
+                                </div>
+                            </div>
+                        )
+                    },
+                    rowExpandable: (record) => record.id,
+                  }}
             />
         </div>
     )
