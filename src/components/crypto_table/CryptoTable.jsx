@@ -1,85 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { Table } from 'antd'
 
-
-// material ui
-import Button from '@mui/material/Button';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import TableContainer from '@mui/material/TableContainer';
-import Table from '@mui/material/Table';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableBody from '@mui/material/TableBody';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Divider from '@mui/material/Divider';
-
-const CustomTableRow = ({current, currency}) => {
-    const {
-        name,
-        cmc_rank,
-        symbol,
-        total_supply,
-        max_supply,
-        quote
-    } = current;
-    const [open, setOpen] = useState(false);
-
-    return (
-        <Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                {/* expand button */}
-                <TableCell>
-                    <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => setOpen(!open)}
-                    >
-                        {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </IconButton>
-                </TableCell>
-
-                <TableCell component="th" scope="row">{name}</TableCell>
-                <TableCell align="right">{cmc_rank}</TableCell>
-                <TableCell align="right">{symbol}</TableCell>
-                <TableCell align="right">{quote[currency]?.price}</TableCell>
-                <TableCell align="right">{quote[currency]?.volume_change_24h}</TableCell>
-            </TableRow>
-
-            {/* expandable row */}
-            <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                        <div style={styles.collapse_row}>
-                            {/* <div style={styles.bitcoin_info}>
-                                <h3>BTC</h3>
-                                <div><label><b>Price</b>:</label> <span>{quote.BTC.price}</span></div>
-                                <div><label><b>24 hr volume change</b>:</label> <span>{quote.BTC.volume_change_24h} BTC</span></div>
-                                <div><label><b>24 hr percentage change</b>:</label> <span>{quote.BTC.percent_change_24h}</span></div>
-                                <div><label><b>Market Cap</b>:</label> <span>{quote.BTC.market_cap} BTC</span></div>
-                            </div> */}
-                            <Divider style={{order: 2}} orientation="vertical" flexItem />
-                            <div style={styles.other_info}>
-                                <h3>{currency}</h3>
-                                <div><label><b>Price</b>:</label> <span>{quote[currency]?.price}</span></div>
-                                <div><label><b>24 hr volume change</b>:</label> <span>{quote[currency]?.volume_change_24h}</span></div>
-                                <div><label><b>24 hr percentage change</b>:</label> <span>{quote[currency]?.percent_change_24h}</span></div>
-                                <div><label><b>Market Cap</b>:</label> <span>{quote[currency]?.market_cap}</span></div>
-                            </div>
-                            <Divider style={{order: 4}} orientation="vertical" flexItem />
-                            <div style={styles.other_info2}>
-                                <div><label><b>Total supply</b>:</label> <span>{total_supply}</span></div>
-                                <div><label><b>Max supply</b>:</label> <span>{max_supply}</span></div>
-                            </div>
-                        </div>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
-        </Fragment>
-    )
-}
 
 const CryptoTable = (props) => {
     const {
@@ -89,9 +10,37 @@ const CryptoTable = (props) => {
         currency
     } = props;
 
+    const columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name'
+        },
+        {
+            title: 'Rank',
+            dataIndex: 'cmc_rank',
+            key: 'cmc_rank'
+        },
+        {
+            title: 'Symbol',
+            dataIndex: 'symbol',
+            key: 'symbol'
+        },
+        {
+            title: 'Price',
+            dataIndex: ['quote', currency, 'price'],
+            key: 'name'
+        },
+        {
+            title: '24 hour change',
+            dataIndex: ['quote', currency, 'volume_change_24h'],
+            key: 'name'
+        },
+    ]
+
     if (loading) return <div>Loading...</div>
 
-    if (cryptoData.length === 0) return <div>No data</div>
+    // if (cryptoData.length === 0) return <div>No data</div>
 
     return (
         <div style={styles.table_div}>
@@ -102,30 +51,15 @@ const CryptoTable = (props) => {
                         display: 'flex',
                         justifyContent: 'flex-end'
                     }}>
-                    <Button variant="contained" onClick={handleRefresh}>
-                        <RefreshIcon/>
-                    </Button>
+                    <button>Reload</button>
                 </div>
             </div>
-            <TableContainer>
-                <Table >
-                    <TableHead>
-                        <TableRow>
-                            <TableCell />
-                            <TableCell>Name</TableCell>
-                            <TableCell align="right">Rank</TableCell>
-                            <TableCell align="right">Symbol</TableCell>
-                            <TableCell align="right">Price</TableCell>
-                            <TableCell align="right">24 hr change</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {cryptoData.map(current => (
-                            <CustomTableRow key={current.id} current={current} currency={currency}/>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    
+            <Table
+                columns={columns}
+                dataSource={cryptoData}
+                loading={loading}
+            />
         </div>
     )
 }
